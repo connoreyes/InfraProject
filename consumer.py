@@ -1,6 +1,8 @@
 from kafka import KafkaConsumer
 from json import loads
 import psycopg2
+from dotenv import load_dotenv
+load_dotenv()
 
 consumer = KafkaConsumer(
    'solar-flares', # subscribes to topic called test
@@ -12,8 +14,8 @@ consumer = KafkaConsumer(
 
 conn = psycopg2.connect(
     dbname="spaceweather",
-    user="connor",
-    password="password",
+    user= os.getenv('POSTGRES_USER'),
+    password=os.getenv('POSTGRES_PASSWORD'),
     host="localhost",
     port="5432"
 )
